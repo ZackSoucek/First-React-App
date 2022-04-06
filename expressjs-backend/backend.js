@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
-app.delete('/users', (req, res) =>{
+app.delete('/users/:id', (req, res) =>{
    const id = req.params.id;
    let result = findUserById(id);
    if (result === undefined || result.length == 0)
