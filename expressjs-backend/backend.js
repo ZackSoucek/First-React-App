@@ -68,12 +68,20 @@ const findUserByName = (name) => {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
+  userToAdd.id = generateId();
   addUser(userToAdd);
-  res.status(200).end();
+  res.status(201).end();
 });
 
 function addUser(user) {
   users["users_list"].push(user);
+}
+function generateId(){
+  id = Math.random().toString(36).replace(/[^a-z]+/g, '').substring(0,6);
+  while(findUserById(id)){
+    id = Math.random().toString(36).replace(/[^a-z]+/g, '').substring(0,6);
+  }
+  return id;
 }
 
 const users = {

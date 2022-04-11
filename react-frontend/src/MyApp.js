@@ -11,6 +11,17 @@ function MyApp() {
     });
   }, []);
 
+  async function makePostCall(person){
+    try {
+       const response = await axios.post('http://localhost:5000/users', person);
+       return response;
+    }
+    catch (error) {
+       console.log(error);
+       return false;
+    }
+ }
+
   async function fetchAll() {
     try {
       const response = await axios.get("http://localhost:5000/users");
@@ -30,9 +41,11 @@ function MyApp() {
   }
 
   function updateList(person) {
-    setCharacters([...characters, person]);
-  }
-
+    makePostCall(person).then( result => {
+    if (result && result.status === 201)
+       setCharacters([...characters, person] );
+    });
+ }
   return (
     <div className="container">
       <Table characterData={characters} removeCharacter={removeOneCharacter} />
