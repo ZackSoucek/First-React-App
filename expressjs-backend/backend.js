@@ -70,7 +70,7 @@ app.post("/users", (req, res) => {
   const userToAdd = req.body;
   userToAdd.id = generateId();
   addUser(userToAdd);
-  res.status(201).end();
+  res.status(201).send(userToAdd);
 });
 
 function addUser(user) {
